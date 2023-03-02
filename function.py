@@ -35,7 +35,7 @@ def sum_d_i2(x, y):
     return d
 
 
-def s_x(x: list) -> float:
+def get_s_x(x: list) -> float:
     return math.sqrt(1 / (len(x) * (len(x) - 1)) * sum_varianz(x))
 
 
@@ -49,25 +49,35 @@ def get_a(x, y):
     return mean(y) - get_b(x, y) * mean(x)
 
 
-def s_b(x, y):
+def get_s_b(x, y):
     s = (1 / (len(x) - 2)) * ((sum_d_i2(x, y)) / (sum_varianz(x)))
     return math.sqrt(s)
 
 
-def s_a(x, y):
+def get_s_a(x, y):
     xx = get_xx(x)
-    s = xx / len(x) * s_b(x, y) ** 2
+    s = xx / len(x) * get_s_b(x, y) ** 2
     return math.sqrt(s)
 
 
 def wert_x(name: str, x: list) -> None:
     print(f"{name}:")
-    print(f" -  {name}_mean = {round(mean(x), 9)}")
-    print(f" -  s_{name} = {round(s_x(x), 9)}")
+    x_mean = round(mean(x), 9)
+    s_x_mean = round(get_s_x(x), 9)
+    perc = round(s_x_mean/x_mean, 6)
+    print(f" -  {name}_mean = {x_mean} +- {s_x_mean}    (+- {perc})")
+    print()
 
 
 def wert_xy(name: str, x: list, y: list) -> None:
     print(f"{name}:")
-    print(f" -  b = {round(get_b(x, y), 9)} +- {round(s_b(x, y), 9)}")
-    print(f" -  a = {round(get_a(x, y), 9)} +- {round(s_a(x, y), 9)}")
+    b=round(get_b(x, y), 9)
+    s_b = round(get_s_b(x, y), 9)
+    b_perc = round(s_b/b, 6)
+
+    a = round(get_a(x, y), 9)
+    s_a = round(get_s_a(x, y), 9)
+    a_perc = round(s_a/a, 6)
+    print(f" -  b = {b} +- {s_b}  (+- {b_perc})")
+    print(f" -  a = {a} +- {s_a}  (+- {a_perc})")
     print()
