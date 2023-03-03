@@ -27,25 +27,23 @@ dT_Styro = [3.158018727,3.065495358,3.026478705,2.980337549,2.943558298,2.906870
 
 
 
+print("5.1:")
+wert_x("U_H", U_H)
 
-if __name__ == "__main__":
-    print("5.1:")
-    wert_x("U_H", U_H)
+wert_x("I_H", I_H)
 
-    wert_x("I_H", I_H)
+wert_xy("T(t)", t, T)
 
-    wert_xy("T(t)", t, T)
+wert_xy("U_th(T)", T_1, U_th)
 
-    wert_xy("U_th(T)", T_1, U_th)
+print("R_kontakt_1 = 0.5*a")
+wert_xy("R_ges(n)", n, R)
 
-    print("R_kontakt_1 = 0.5*a")
-    wert_xy("R_ges(n)", n, R)
+print("R_ges_Holz = 1/b * ((m_1+m_2)/(c_Cu*m_1*/m_2))")
+print("R_kontakt_Holz = a (warum von Papier übernehmen)")
+wert_xy("dT(t) Holz", t_2, dT_Holz)
 
-    print("R_ges_Holz = 1/b * ((m_1+m_2)/(c_Cu*m_1*/m_2))")
-    print("R_kontakt_Holz = a (warum von Papier übernehmen)")
-    wert_xy("dT(t) Holz", t_2, dT_Holz)
-
-    print("R_ges_Styro = 1/b * ((m_1+m_2)/(c_Cu*m_1*/m_2))")
-    print("R_kontakt_Styro = a (warum von Papier übernehmen)")
-    wert_xy("dt(t) Styro", t_2, dT_Styro)
-    print("\n5.2:")
+print("R_ges_Styro = 1/b * ((m_1+m_2)/(c_Cu*m_1*/m_2))")
+print("R_kontakt_Styro = a (warum von Papier übernehmen)")
+wert_xy("dt(t) Styro", t_2, dT_Styro)
+print("\n5.2:")
