@@ -65,17 +65,19 @@ def get_s_a(x, y):
     return math.sqrt(s)
 
 
-def wert_x(x: list, name: str = None) -> int:
+def wert_x(x: list, name: str = None, print_info=True) -> int:
     x_mean = round(mean(x), 9)
     s_x_mean = round(get_s_x(x), 9)
     perc = round(s_x_mean / x_mean, 6)
-    print(f"{name}_mean = {x_mean} +- {s_x_mean}    (+- {perc})")
-    print()
+    if print_info:
+        print(f"{name}_mean = {x_mean} +- {s_x_mean}    (+- {perc})")
+        print()
     return x_mean
 
 
-def wert_xy(x: list, y: list, name: str = None) -> tuple:
-    print(f"{name}:")
+def wert_xy(x: list, y: list, name: str = None, print_info=False) -> tuple:
+    if print_info:
+        print(f"{name}:")
     b = round(get_b(x, y), 9)
     s_b = round(get_s_b(x, y), 9)
     b_perc = round(s_b / b, 6)
@@ -83,9 +85,11 @@ def wert_xy(x: list, y: list, name: str = None) -> tuple:
     a = round(get_a(x, y), 9)
     s_a = round(get_s_a(x, y), 9)
     a_perc = round(s_a / a, 6)
-    print(f" -  b = {b} +- {s_b}  (+- {b_perc})")
-    print(f" -  a = {a} +- {s_a}  (+- {a_perc})")
-    print()
+
+    if print_info:
+        print(f" -  b = {b} +- {s_b}  (+- {b_perc})")
+        print(f" -  a = {a} +- {s_a}  (+- {a_perc})")
+        print()
 
     return b, a
 
@@ -101,7 +105,7 @@ def graph(x: list, y: list, trendlinie=False, title=None, xlabel=None, ylabel=No
 
     if trendlinie:
         b, a = wert_xy(x, y)
-        ax.plot(x, [(b * i + a) for i in x], color="grey", linestyle="dashed")
+        ax.plot(x, get_Trendlinie(x, y))#[(b * i + a) for i in x], color="grey", linestyle="dashed")
         ax.text(text_pos[0], text_pos[1], rf"{round(b, 3)}$*x + {round(a, 3)}$")
 
     ax.scatter(x, y, linewidths=2)
