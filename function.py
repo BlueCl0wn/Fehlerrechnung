@@ -75,8 +75,8 @@ def wert_x(x: list, name: str = None, print_info=True) -> int:
     return x_mean
 
 
-def wert_xy(x: list, y: list, name: str = None, print_info=False) -> tuple:
-    if print_info:
+def wert_xy(x: list, y: list, name: str = None) -> tuple:
+    if name:
         print(f"{name}:")
     b = round(get_b(x, y), 9)
     s_b = round(get_s_b(x, y), 9)
@@ -86,7 +86,7 @@ def wert_xy(x: list, y: list, name: str = None, print_info=False) -> tuple:
     s_a = round(get_s_a(x, y), 9)
     a_perc = round(s_a / a, 6)
 
-    if print_info:
+    if name:
         print(f" -  b = {b} +- {s_b}  (+- {b_perc})")
         print(f" -  a = {a} +- {s_a}  (+- {a_perc})")
         print()
@@ -94,23 +94,23 @@ def wert_xy(x: list, y: list, name: str = None, print_info=False) -> tuple:
     return b, a
 
 
-def get_Trendlinie(x: list, y: list):
+def get_trendlinie(x: list, y: list):
     z = np.polyfit(x, y, 1)
     p = np.poly1d(z)
     return p(x)
 
 
-def graph(x: list, y: list, trendlinie=False, title=None, xlabel=None, ylabel=None, text_pos=(300, 250)):
+def graph(x: list, y: list, trendlinie: bool =False, title: str =None, xlabel: str =None, ylabel: str =None):
     fig, ax = plt.subplots(layout='constrained')
 
     if trendlinie:
         b, a = wert_xy(x, y)
-        ax.plot(x, get_Trendlinie(x, y))#[(b * i + a) for i in x], color="grey", linestyle="dashed")
-        ax.text(text_pos[0], text_pos[1], rf"{round(b, 3)}$*x + {round(a, 3)}$")
+        ax.plot(x, [(b * i + a) for i in x], color="grey", linestyle="dashed", label=rf"Trendlinie: {round(b, 3)}$*x + {round(a, 3)}$")
 
     ax.scatter(x, y, linewidths=2)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_title(title)
     ax.grid()
+    ax.legend()
     plt.show()

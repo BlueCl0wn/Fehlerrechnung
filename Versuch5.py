@@ -38,27 +38,27 @@ lndT_Styro = [3.158018727, 3.065495358, 3.026478705, 2.980337549, 2.943558298, 2
 
 
 print("5.1:")
-wert_x("U_H", U_H)
+wert_x(U_H, name="U_H")
 
-wert_x("I_H", I_H)
+wert_x(I_H, name="I_H")
 
-wert_xy("T(t)", t, T)
+wert_xy(t, T, name="T(t)")
 
-wert_xy("U_th(T)", T_1, U_th)
+wert_xy(T_1, U_th, name="U_th(T)")
 
 print("R_kontakt_1 = 0.5*a")
-wert_xy("R_ges(n)", n, R)
+wert_xy(n, R, name="R_ges(n)")
 
 # Lineare Regression von Papier
-wert_xy("dT(t) Papier5", t_2[:6], ln_dT_Papier_5)
-wert_xy("dT(t) Papier10", t_2, ln_dT_Papier_10)
-wert_xy("dT(t) Papier15", t_2, ln_dT_Papier_15)
-wert_xy("dT(t) Papier20", t_2, ln_dT_Papier_20)
+wert_xy(t_2[:6], ln_dT_Papier_5, name="dT(t) Papier5")
+wert_xy(t_2, ln_dT_Papier_10, name="dT(t) Papier10")
+wert_xy(t_2, ln_dT_Papier_15, name="dT(t) Papier15")
+wert_xy(t_2, ln_dT_Papier_20, name="dT(t) Papier20")
 
 print("\n5.2:")
 
 # Lineare Regression von Holz
-wert_xy("dT(t) Holz", t_2, lndT_Holz)
+wert_xy(t_2, lndT_Holz, name="dT(t) Holz")
 
 # Lineare Regression von Styropor
-wert_xy("dt(t) Styro", t_2, lndT_Styro)
+wert_xy(t_2, lndT_Styro, name="dt(t) Styro")
