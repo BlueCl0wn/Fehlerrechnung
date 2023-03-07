@@ -65,14 +65,14 @@ def get_s_a(x, y):
     return math.sqrt(s)
 
 
-def wert_x(x: list, name: str = None, print_info=True) -> int:
+def wert_x(x: list, name: str = None, print_info=True) -> tuple:
     x_mean = round(mean(x), 9)
     s_x_mean = round(get_s_x(x), 9)
     perc = round(s_x_mean / x_mean, 6)
     if print_info:
         print(f"{name}_mean = {x_mean} +- {s_x_mean}    (+- {perc})")
         print()
-    return x_mean
+    return x_mean, s_x_mean
 
 
 def wert_xy(x: list, y: list, name: str = None) -> tuple:
@@ -84,14 +84,14 @@ def wert_xy(x: list, y: list, name: str = None) -> tuple:
 
     a = round(get_a(x, y), 9)
     s_a = round(get_s_a(x, y), 9)
-    a_perc = round(s_a / a, 6)
+    a_perc = round(s_a / a, 6) if a != 0 else 999999999999999
 
     if name:
         print(f" -  b = {b} +- {s_b}  (+- {b_perc})")
         print(f" -  a = {a} +- {s_a}  (+- {a_perc})")
         print()
 
-    return b, a
+    return b, a, s_b, s_a
 
 
 def get_trendlinie(x: list, y: list):
@@ -100,17 +100,22 @@ def get_trendlinie(x: list, y: list):
     return p(x)
 
 
-def graph(x: list, y: list, trendlinie: bool =False, title: str =None, xlabel: str =None, ylabel: str =None):
+def graph(x: list, y: list | tuple, trendlinie: bool = False, title: str = None, xlabel: str = None, ylabel: str = None):
     fig, ax = plt.subplots(layout='constrained')
 
     if trendlinie:
         b, a = wert_xy(x, y)
-        ax.plot(x, [(b * i + a) for i in x], color="grey", linestyle="dashed", label=rf"Trendlinie: {round(b, 3)}$*x + {round(a, 3)}$")
+        ax.plot(x, [(b * i + a) for i in x], color="grey", linestyle="dashed",
+                label=rf"Trendlinie: {round(b, 3)}$*x + {round(a, 3)}$")
 
-    ax.scatter(x, y, linewidths=2)
+    if type(y) == tuple:
+        for y_i in y:
+            ax.scatter(x, y_i[0], linewidths=1, label=y_i[1])
+    else:
+        ax.scatter(x, y, linewidths=2)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_title(title)
-    ax.grid()
     ax.legend()
+    ax.grid()
     plt.show()
