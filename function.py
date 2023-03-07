@@ -80,7 +80,7 @@ def wert_xy(x: list, y: list, name: str = None) -> tuple:
         print(f"{name}:")
     b = round(get_b(x, y), 9)
     s_b = round(get_s_b(x, y), 9)
-    b_perc = round(s_b / b, 6)
+    b_perc = round(s_b / b, 6) if b != 0 else 999999999999999
 
     a = round(get_a(x, y), 9)
     s_a = round(get_s_a(x, y), 9)
@@ -103,16 +103,20 @@ def get_trendlinie(x: list, y: list):
 def graph(x: list, y: list | tuple, trendlinie: bool = False, title: str = None, xlabel: str = None, ylabel: str = None):
     fig, ax = plt.subplots(layout='constrained')
 
-    if trendlinie:
-        b, a = wert_xy(x, y)
-        ax.plot(x, [(b * i + a) for i in x], color="grey", linestyle="dashed",
-                label=rf"Trendlinie: {round(b, 3)}$*x + {round(a, 3)}$")
 
     if type(y) == tuple:
         for y_i in y:
             ax.scatter(x, y_i[0], linewidths=1, label=y_i[1])
+            if trendlinie:
+                b, a , s_b, s_a = wert_xy(x, y_i[0])
+                ax.plot(x, [(b * i + a) for i in x], color="grey", linestyle="dashed",
+                        label=rf"{y_i[1]}: Trendlinie: {round(b, 3)}$*x + {round(a, 3)}$")
     else:
         ax.scatter(x, y, linewidths=2)
+        if trendlinie:
+            b, a, s_b, s_a = wert_xy(x, y)
+            ax.plot(x, [(b * i + a) for i in x], color="grey", linestyle="dashed",
+                    label=rf"Trendlinie: {round(b, 3)}$*x + {round(a, 3)}$")
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_title(title)
