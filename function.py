@@ -1,8 +1,8 @@
 import math
+from math import sqrt
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-
 
 def mean(l: list) -> int:
     return sum(l) / len(l)
@@ -66,9 +66,9 @@ def get_s_a(x, y):
 
 
 def wert_x(x: list, name: str = None, print_info=True) -> tuple:
-    x_mean = round(mean(x), 9)
-    s_x_mean = round(get_s_x(x), 9)
-    perc = round(s_x_mean / x_mean, 6)
+    x_mean = mean(x)
+    s_x_mean = get_s_x(x)
+    perc = s_x_mean / x_mean if x_mean != 0 else 9999999999
     if print_info:
         print(f"{name}_mean = {x_mean} +- {s_x_mean}    (+- {perc})")
         print()
@@ -100,26 +100,28 @@ def get_trendlinie(x: list, y: list):
     return p(x)
 
 
-def graph(x: list, y: list | tuple, trendlinie: bool = False, title: str = None, xlabel: str = None, ylabel: str = None):
+def graph(x: list, y: list | tuple, trendlinie: bool = False, title: str = None, xlabel: str = None,
+          ylabel: str = None):
     fig, ax = plt.subplots(layout='constrained')
-
 
     if type(y) == tuple:
         for y_i in y:
             ax.scatter(x, y_i[0], linewidths=1, label=y_i[1])
             if trendlinie:
-                b, a , s_b, s_a = wert_xy(x, y_i[0])
+                b, a, s_b, s_a = wert_xy(x, y_i[0])
                 ax.plot(x, [(b * i + a) for i in x], color="grey", linestyle="dashed",
                         label=rf"{y_i[1]}: Trendlinie: {round(b, 3)}$*x + {round(a, 3)}$")
+        ax.legend()
+
     else:
         ax.scatter(x, y, linewidths=2)
         if trendlinie:
             b, a, s_b, s_a = wert_xy(x, y)
             ax.plot(x, [(b * i + a) for i in x], color="grey", linestyle="dashed",
                     label=rf"Trendlinie: {round(b, 3)}$*x + {round(a, 3)}$")
+            ax.legend()
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_title(title)
-    ax.legend()
     ax.grid()
-    plt.show()
+    # plt.show()
