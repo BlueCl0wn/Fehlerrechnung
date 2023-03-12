@@ -48,7 +48,9 @@ tau = -1/b
 s_tau = -1/b**2 * s_b
 C = tau/(1550)
 s_C = 1/1550 * s_tau
-print(tau)
-print(s_tau)
-print(C)
-print(s_C)
+print(f"tau = {tau: .3e}")
+print(f"s_tau = {s_tau: .3e}")
+print(f"C = {C: .3e}")
+print(f"s_C = {s_C: .3e}")
+
+print(6.4e-5/47e-9)
