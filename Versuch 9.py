@@ -209,7 +209,7 @@ graph(I_30, ((F_30, r"Stromrichtung gleich"), (F_31, r"Stromrichtung entgegenges
       xlabel=r"$I$ in $A$", ylabel=r"magnetische Kraft $F$ in $N$", trendlinie=True)
 
 # TODO Warum die einzelnen Werte für I hier um diesen Faktor verkleinert?
-wert_xy([i * 8 * 10 ** -7 for i in I_30], F_30, name="F, Stromrichtung gleich")
-wert_xy([i * 3.57 * 10 ** -5 for i in I_30], F_31, name="F, Stromrichtung entgegen")
+wert_xy([i for i in I_30], F_30, name="F, Stromrichtung gleich")
+wert_xy([i for i in I_30], F_31, name="F, Stromrichtung entgegen")
 
 plt.show()
