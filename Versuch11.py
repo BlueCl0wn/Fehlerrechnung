@@ -15,8 +15,8 @@ U_FGK = [U_i * 10**-3 for U_i in U_FGK_mV]
 U_B_mV = [100, 158, 284, 427, 680, 800, 820, 800, 800, 800, 800, 800, 760, 416, 384, 282, 124, 68.8, 52, 42.4]  # in mV
 U_B = [U_i * 10**-3 for U_i in U_B_mV]
 
-dt_mus = [236, 74, 58.4, 26.8, 9.8, 3.8, 2.06, 0.7, 0.6, 0.2, 0.01, 1.7, 5.72, 10.36, 9.6, 7.5, 4.68, 2.96, 2.2, 2.1]  # in mikro Sekunden
-dt = [dt_i * 10**-6 for dt_i in dt_mus]
+dt_mus = [236, 74, 58.4, 26.8, 9.8, 3.8, 2.06, 0.7, 0.6, 0.2, -0.01, -1.7, -5.72, -10.36, -9.6, -7.5, -4.68, -2.96, -2.2, -2.1]  # in mikro Sekunden
+dt = [-1 * dt_i * 10**-6 for dt_i in dt_mus]
 
 I_0 = [U_i/R for U_i in U_B]
 
@@ -32,7 +32,7 @@ graph(f, p_hi, xlabel=r"Frequenz $f$ in $Hz$", ylabel=r"Phasendifferenz in rad",
 # 4. Versuchsteil
 
 dt_4_mus = [0, 24, 50, 74, 100, 150, 200, 300, 400] # in mikro Sekunden
-dt_4 = [dt_i_4 * 10**-3 for dt_i_4 in dt_4_mus]
+dt_4 = [dt_i_4 * 10**-6 for dt_i_4 in dt_4_mus]
 R_4 = [1500]*len(dt_4)
 
 U_R_mV = [1680, 880, 540, 380, 260, 160, 120, 60, 20] # in mV
@@ -52,5 +52,3 @@ print(f"tau = {tau: .3e}")
 print(f"s_tau = {s_tau: .3e}")
 print(f"C = {C: .3e}")
 print(f"s_C = {s_C: .3e}")
-
-print(6.4e-5/47e-9)
