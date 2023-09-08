@@ -73,7 +73,7 @@ def wert_x(x: list, name: str = None) -> tuple:
     s_x_mean = get_s_x(x)
     perc = s_x_mean / x_mean if x_mean != 0 else 9999999999
     if name is not None:
-        print(f"{name}_mean = {x_mean} +- {s_x_mean}    (+- {perc})")
+        print(f"{name: .3e}_mean = {x_mean: .3e} +- {s_x_mean: .3e}    (+- {perc: .3e})")
         print()
     return x_mean, s_x_mean
 
@@ -90,8 +90,8 @@ def wert_xy(x: list, y: list, name: str = None) -> tuple:
     a_perc = s_a / a if a != 0 else 999999999999999
 
     if name is not None:
-        print(f" -  b = {b} +- {s_b}  (+- {b_perc})")
-        print(f" -  a = {a} +- {s_a}  (+- {a_perc})")
+        print(f" -  b = {b: .3e} +- {s_b: .3e}  (+- {b_perc: .3e})")
+        print(f" -  a = {a: .3e} +- {s_a: .3e}  (+- {a_perc: .3e})")
         print()
 
     return b, a, s_b, s_a
