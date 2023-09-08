@@ -104,7 +104,7 @@ def get_trendlinie(x: list, y: list):
 
 
 def graph(x: list, y: list | tuple, trendlinie: bool = False, title: str = None, xlabel: str = None,
-          ylabel: str = None):
+          ylabel: str = None, xlog=False, ylog=False):
     fig, ax = plt.subplots(layout='constrained')
 
     if type(y) == tuple:
@@ -125,6 +125,11 @@ def graph(x: list, y: list | tuple, trendlinie: bool = False, title: str = None,
             ax.legend()
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
+
+    if xlog:
+        ax.set_xscale("log")
+    if ylog:
+        ax.set_yscale("log")
     ax.set_title(title)
     ax.grid()
     plt.show()
