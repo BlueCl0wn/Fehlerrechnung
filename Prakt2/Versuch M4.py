@@ -31,3 +31,9 @@ def phi_erz(omega_e: int, omega_0, phi_e) -> int:
 omegas = np.linspace(0.2, 1.4, 1000)
 y_ampkurve = phi_erz(omegas, omega_0_1, phi_e)
 graph(omegas, y_ampkurve, title="Amplitudenresonanzkurve", xlabel=r"\omega", ylabel=r"Amplitude")
+
+
+# -------- Teil 5 -----
+I = [0.7,0.6,0.5,0.4,0.3]
+U = [5.9,5.1,4.3,3.4,2.5]
+

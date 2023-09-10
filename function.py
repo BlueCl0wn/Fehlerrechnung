@@ -98,13 +98,31 @@ def wert_xy(x: list, y: list, name: str = None) -> tuple:
 
 
 def get_trendlinie(x: list, y: list):
+    """
+
+    :param x:
+    :param y:
+    :return:
+    """
     z = np.polyfit(x, y, 1)
     p = np.poly1d(z)
     return p(x)
 
 
 def graph(x: list, y: list | tuple, trendlinie: bool = False, title: str = None, xlabel: str = None,
-          ylabel: str = None):
+          ylabel: str = None, xlog: bool = False, ylog: bool = False) -> None:
+    """
+
+    :param x: data for x axis
+    :param y: data for y axis
+    :param trendlinie:
+    :param title: graph title
+    :param xlabel: Label for y axis
+    :param ylabel: Label for y axis
+    :param xlog: Determines wether the x axis should be plotted logarithmic.
+    :param ylog: Determines wether the y axis should be plotted logarithmic.
+    :return: None
+    """
     fig, ax = plt.subplots(layout='constrained')
 
     if type(y) == tuple:
@@ -123,6 +141,12 @@ def graph(x: list, y: list | tuple, trendlinie: bool = False, title: str = None,
             ax.plot(x, [(b * i + a) for i in x], color="grey", linestyle="dashed",
                     label=rf"Trendlinie: {b: .2e}$*x + {a: .2e}$")
             ax.legend()
+
+    if xlog:
+        ax.set_xscale("log")
+    if ylog:
+        ax.set_yscale("log")
+
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_title(title)
