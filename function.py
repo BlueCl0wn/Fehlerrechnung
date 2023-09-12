@@ -29,6 +29,7 @@ def get_xx(x) -> int:
 def get_xy(x: list, y: list) -> int:
     xy = 0
     for i in range(len(x)):
+        # if (x[i] is not None) & (y[i] is not None): # Attempt at making it None-Proof
         xy += x[i] * y[i]
     return xy
 
@@ -78,9 +79,24 @@ def wert_x(x: list, name: str = None) -> tuple:
     return x_mean, s_x_mean
 
 
-def wert_xy(x: list | np.ndarray, y: list | np.ndarray, name: str = None) -> tuple:
+def wert_xy(x: list | np.ndarray, y: np.ndarray, name: str = None) -> tuple:
     if name is not None:
         print(f"{name}:")
+
+    # Convert to np.ndrarray if not already so.
+    if type(x) == list:
+        x = np.array(x)
+    if type(y) == list:
+        y = np.array(y)
+
+    # Remove all None entries from the given data
+    pos1 = x == None # '==' is correct. Is would check if array is None not whether elements of array are None.
+    pos2 = y == None
+    pos = np.logical_or(pos1, pos2)
+    x = x[~pos]
+    y = y[~pos]
+
+    # do calcultions
     b = get_b(x, y)
     s_b = get_s_b(x, y)
     b_perc = s_b / b if b != 0 else 999999999999999
@@ -151,4 +167,25 @@ def graph(x: list, y: list | tuple, trendlinie: bool = False, title: str = None,
     ax.set_ylabel(ylabel)
     ax.set_title(title)
     ax.grid()
+    plt.show()
+
+
+def table(rowLabels: list, colLabels: list, data: list | tuple | np.ndarray, transpose=True) -> None:
+    """
+    Generell function makin' some sleek lookin' tables.
+
+    :param rowLabels: The text of the row header cells.
+    :param colLabels: The text of the column header cells.
+    :param data: The texts to place into the table cells.
+    :param transpose: Should the data array be transposed
+    :return: None
+    """
+    fig, ax = plt.subplots()
+    if transpose:
+        data = data.transpose()
+
+    ax.table(cellText=data, rowLabels=rowLabels, colLabels=colLabels, loc='center', cellLoc='center', rowLoc='center')
+
+    ax.axis('off')
+
     plt.show()
