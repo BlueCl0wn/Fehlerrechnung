@@ -78,7 +78,7 @@ def wert_x(x: list, name: str = None) -> tuple:
     return x_mean, s_x_mean
 
 
-def wert_xy(x: list, y: list, name: str = None) -> tuple:
+def wert_xy(x: list | np.ndarray, y: list | np.ndarray, name: str = None) -> tuple:
     if name is not None:
         print(f"{name}:")
     b = get_b(x, y)
