@@ -46,6 +46,7 @@ Messwerte_ = [HG_1_Zeit_100ms, HG_2_Gitter_Zeit_100ms, Ar_Zeit_200000ms, Ar_2_Ze
               Dunkel_zeit_100000ms, Dunkel_zeit_200000ms]
 
 Messwerte_ = np.asarray(Messwerte_)
+Messwerte_ = np.core.defchararray.replace(Messwerte_, ",", ".")
 Messwerte = Messwerte_.astype(float).transpose(0, 2, 1)
 x = Messwerte[0, 0]
 Messwerte = Messwerte[0:12, 1, 0:3000]
@@ -54,5 +55,5 @@ print(type(Messwerte[0,0]))
 
 
 #  ---------- Teil 1 -----------
-graph(x, Messwerte[0]-Messwerte[8], title="Nettospektrum der Kalibrierungsquelle", xlabel="Ordnungszahl der Pixel", ylabel="Intensität")
+graph(x, Messwerte[0]-Messwerte[8], graph="plot", title="Nettospektrum der Kalibrierungsquelle", xlabel="Ordnungszahl der Pixel", ylabel="Intensität")
 

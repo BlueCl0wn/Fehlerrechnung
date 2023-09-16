@@ -126,7 +126,7 @@ def get_trendlinie(x: list, y: list):
 
 
 def graph(x: list, y: list | tuple, trendlinie: bool = False, title: str = None, xlabel: str = None,
-          ylabel: str = None, xlog: bool = False, ylog: bool = False) -> None:
+          ylabel: str = None, xlog: bool = False, ylog: bool = False, graph="scatter") -> None:
     """
 
     :param x: data for x axis
@@ -143,7 +143,10 @@ def graph(x: list, y: list | tuple, trendlinie: bool = False, title: str = None,
 
     if type(y) == tuple:
         for y_i in y:
-            ax.scatter(x, y_i[0], linewidths=1, label=y_i[1])
+            if graph == "scatter":
+                ax.scatter(x, y_i[0], linewidths=1, label=y_i[1])
+            elif graph == "plot":
+                ax.plot(x, y_i[0], linewidth=1, label=y_i[1])
             if trendlinie:
                 b, a, s_b, s_a = wert_xy(x, y_i[0])
                 ax.plot(x, [(b * i + a) for i in x], color="grey", linestyle="dashed",
@@ -151,7 +154,11 @@ def graph(x: list, y: list | tuple, trendlinie: bool = False, title: str = None,
         ax.legend()
 
     else:
-        ax.scatter(x, y, linewidths=2)
+
+        if graph == "scatter":
+            ax.scatter(x, y, linewidths=2)
+        elif graph == "plot":
+            ax.plot(x, y, linewidth=1.5)
         if trendlinie:
             b, a, s_b, s_a = wert_xy(x, y)
             ax.plot(x, [(b * i + a) for i in x], color="grey", linestyle="dashed",
