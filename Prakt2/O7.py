@@ -59,12 +59,15 @@ graph(x, Messwerte[0] - Messwerte[8], graph="plot", title="Nettospektrum der Kal
 
 
 def find_maxima(x) -> np.ndarray:
-    temp = find_peaks(Messwerte[0] - Messwerte[8], prominence=0.05)
-    print(temp)
-    max = np.array([temp[0], x[temp[0]]])
-    return max
+    temp = find_peaks(x, prominence=0.015)
+    return np.array(temp[0])
 
-Maxima_Nettospektrum_Hg = find_maxima(Messwerte[0] - Messwerte[8])
 
-Maxima = np.array([find_maxima(i) for i in Messwerte])
-print(find_maxima(Messwerte[0] - Messwerte[8]))
+Nettospektrum_Hg = Messwerte[0] - Messwerte[8]
+Maxima_Nettospektrum_Hg = find_maxima(Nettospektrum_Hg)
+wavelength_hg = [578.966, 576.959, 546.074, 435.835, 407.781, 404.656, None]
+data_Hg = (Maxima_Nettospektrum_Hg, np.around(Nettospektrum_Hg[Maxima_Nettospektrum_Hg], 3), wavelength_hg)
+print(data_Hg)
+table(data=data_Hg, colLabels=[r"Ordnung $z_i$", r"Intensität", r"Wellenlänge $\lambda_i$"])
+
+graph(data_Hg[0], data_Hg[2], trendlinie=True, xlabel)

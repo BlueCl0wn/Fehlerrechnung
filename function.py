@@ -125,7 +125,7 @@ def get_trendlinie(x: list, y: list):
     return p(x)
 
 
-def graph(x: list, y: list | tuple, trendlinie: bool = False, title: str = None, xlabel: str = None,
+def graph(x: list | np.ndarray, y: list | tuple | np.ndarray, trendlinie: bool = False, title: str = None, xlabel: str = None,
           ylabel: str = None, xlog: bool = False, ylog: bool = False, graph="scatter") -> None:
     """
 
@@ -177,7 +177,7 @@ def graph(x: list, y: list | tuple, trendlinie: bool = False, title: str = None,
     plt.show()
 
 
-def table(rowLabels: list, colLabels: list, data: list | tuple | np.ndarray, transpose=True) -> None:
+def table(data: list | tuple | np.ndarray, rowLabels: list = None, colLabels: list = None, transpose=True) -> None:
     """
     Generell function makin' some sleek lookin' tables.
 
@@ -187,6 +187,9 @@ def table(rowLabels: list, colLabels: list, data: list | tuple | np.ndarray, tra
     :param transpose: Should the data array be transposed
     :return: None
     """
+
+    data = np.asarray(data)
+
     fig, ax = plt.subplots()
     if transpose:
         data = data.transpose()
