@@ -90,7 +90,7 @@ def wert_xy(x: list | np.ndarray, y: np.ndarray, name: str = None) -> tuple:
         y = np.array(y)
 
     # Remove all None entries from the given data
-    pos1 = x == None # '==' is correct. Is would check if array is None not whether elements of array are None.
+    pos1 = x == None  # '==' is correct. Is would check if array is None not whether elements of array are None.
     pos2 = y == None
     pos = np.logical_or(pos1, pos2)
     x = x[~pos]
@@ -125,10 +125,12 @@ def get_trendlinie(x: list, y: list):
     return p(x)
 
 
-def graph(x: list | np.ndarray, y: list | tuple | np.ndarray, trendlinie: bool = False, title: str = None, xlabel: str = None,
+def graph(x: list | np.ndarray, y: list | tuple | np.ndarray, trendlinie: bool = False, title: str = None,
+          xlabel: str = None, multiple=False,
           ylabel: str = None, xlog: bool = False, ylog: bool = False, graph="scatter") -> None:
     """
 
+    :param multiple:
     :param x: data for x axis
     :param y: data for y axis
     :param trendlinie:
@@ -141,7 +143,7 @@ def graph(x: list | np.ndarray, y: list | tuple | np.ndarray, trendlinie: bool =
     """
     fig, ax = plt.subplots(layout='constrained')
 
-    if type(y) == tuple:
+    if (type(y) is tuple) or multiple:
         for y_i in y:
             if graph == "scatter":
                 ax.scatter(x, y_i[0], linewidths=1, label=y_i[1])
@@ -154,7 +156,6 @@ def graph(x: list | np.ndarray, y: list | tuple | np.ndarray, trendlinie: bool =
         ax.legend()
 
     else:
-
         if graph == "scatter":
             ax.scatter(x, y, linewidths=2)
         elif graph == "plot":
