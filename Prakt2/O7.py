@@ -1,6 +1,7 @@
 import numpy as np
 from function import *
 import csv
+from scipy.signal import find_peaks
 
 URI = "Messwerte-O7/"
 with open(URI + "Hg 1 IZeit0,1s.csv") as csvdatei:
@@ -40,7 +41,6 @@ with open(URI + "Dunkelspektrum IZeit 200s.csv") as csvdatei:
     Dunkel_zeit_200000ms = csv.reader(csvdatei, delimiter=';')
     Dunkel_zeit_200000ms = [row for row in Dunkel_zeit_200000ms]
 
-
 Messwerte_ = [HG_1_Zeit_100ms, HG_2_Gitter_Zeit_100ms, Ar_Zeit_200000ms, Ar_2_Zeit_200000ms, H2_zeit_100000ms,
               He_Zeit_200000ms, Leuchtstoff_Zeit_1200ms, Ne_Zeit_200000ms, Dunkel_zeit_100ms, Dunkel_zeit_1200ms,
               Dunkel_zeit_100000ms, Dunkel_zeit_200000ms]
@@ -51,9 +51,20 @@ Messwerte = Messwerte_.astype(float).transpose(0, 2, 1)
 x = Messwerte[0, 0]
 Messwerte = Messwerte[0:12, 1, 0:3000]
 
-print(type(Messwerte[0,0]))
-
+print(type(Messwerte[0, 0]))
 
 #  ---------- Teil 1 -----------
-graph(x, Messwerte[0]-Messwerte[8], graph="plot", title="Nettospektrum der Kalibrierungsquelle", xlabel="Ordnungszahl der Pixel", ylabel="Intensität")
+graph(x, Messwerte[0] - Messwerte[8], graph="plot", title="Nettospektrum der Kalibrierungsquelle",
+      xlabel="Ordnungszahl der Pixel", ylabel="Intensität")
 
+
+def find_maxima(x) -> np.ndarray:
+    temp = find_peaks(Messwerte[0] - Messwerte[8], prominence=0.05)
+    print(temp)
+    max = np.array([temp[0], x[temp[0]]])
+    return max
+
+Maxima_Nettospektrum_Hg = find_maxima(Messwerte[0] - Messwerte[8])
+
+Maxima = np.array([find_maxima(i) for i in Messwerte])
+print(find_maxima(Messwerte[0] - Messwerte[8]))

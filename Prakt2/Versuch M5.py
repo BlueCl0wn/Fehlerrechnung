@@ -33,8 +33,11 @@ eneg_2 = np.array([5.1, 5.7, 7.4, 9.1, 10.3, 12.4, None])  # 2 Ordnung unten
 
 print("Aufgabe 1.1: Messwerte")
 
-columnLabel = np.char.add(np.array([-3, -2, -1, 1, 2, 3]).astype(str), ". Ordnung")
+columnLabel = np.char.add(np.array([-1, -2, -3, 1, 2, 3]).astype(str), ". Ordnung")
 table(data=np.array([pos_1, pos_2, pos_3, neg_1, neg_2, neg_3]), colLabels=columnLabel, rowLabels=f)
+
+# für ethanol
+table(data=np.array([epos_1, epos_2, epos_3, eneg_1, eneg_2, eneg_3]), colLabels=columnLabel, rowLabels=f)
 
 print("Aufgabe 1.2: Bestimmung der Schallgeschwindigkeit durch Lineare Regression.")
 c_Wasser_1 = c((neg_1[0:-1] + pos_1[0:-1]) / 2, n_=1)
