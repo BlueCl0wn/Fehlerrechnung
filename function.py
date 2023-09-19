@@ -59,14 +59,20 @@ def get_a(x, y):
 
 
 def get_s_b(x, y):
-    s = (1 / (len(x) - 2)) * ((sum_d_i2(x, y)) / (sum_varianz(x)))
-    return math.sqrt(s)
+    if len(x) <= 2:
+        return 9999999999999
+    else:
+        s = (1 / (len(x) - 2)) * ((sum_d_i2(x, y)) / (sum_varianz(x)))
+        return math.sqrt(s)
 
 
 def get_s_a(x, y):
-    xx = get_xx(x)
-    s = xx / len(x) * get_s_b(x, y) ** 2
-    return math.sqrt(s)
+    if len(x) <= 2:
+        return 9999999999999
+    else:
+        xx = get_xx(x)
+        s = xx / len(x) * get_s_b(x, y) ** 2
+        return math.sqrt(s)
 
 
 def wert_x(x: list, name: str = None) -> tuple:
@@ -145,9 +151,9 @@ def graph(x: list | np.ndarray, y: list | tuple | np.ndarray, trendlinie: bool =
 
     if (type(y) is tuple) or multiple:
         for y_i in y:
-            if graph == "scatter":
+            if y_i[2] == "scatter":
                 ax.scatter(x, y_i[0], linewidths=1, label=y_i[1])
-            elif graph == "plot":
+            elif y_i[2] == "plot":
                 ax.plot(x, y_i[0], linewidth=1, label=y_i[1])
             if trendlinie:
                 b, a, s_b, s_a = wert_xy(x, y_i[0])
