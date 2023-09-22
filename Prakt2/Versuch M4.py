@@ -33,6 +33,9 @@ amplitude = [6.9, 10.6, 25, 34.3, 54, 55, 55, 55.5, 56, 54.2, 48.5, 27.6, 13.3, 
 
 omega_es = 2 * np.pi * np.array(motorfrequenzen)
 
+table(data=[omega_es.round(2), amplitude, phasendifferenz],
+      colLabels=[r"$\omega_e$ in $1/s$", r"Amplitude in Grad", r"Phasendifferenz in Grad"])
+
 graph(omega_es, amplitude, title=r"gemessene Amplitudenresonanzkurve", xlabel=r"$\omega$ in $1/s$",
       ylabel=r"Amplitude in $Grad$")
 

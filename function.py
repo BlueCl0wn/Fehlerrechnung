@@ -137,14 +137,14 @@ def graph(x: list | np.ndarray, y: list | tuple | np.ndarray, trendlinie: bool =
     """
 
     :param multiple:
-    :param x: data for x axis
-    :param y: data for y axis
+    :param x: data for x-axis
+    :param y: data for y-axis
     :param trendlinie:
     :param title: graph title
-    :param xlabel: Label for y axis
-    :param ylabel: Label for y axis
-    :param xlog: Determines wether the x axis should be plotted logarithmic.
-    :param ylog: Determines wether the y axis should be plotted logarithmic.
+    :param xlabel: Label for y-axis
+    :param ylabel: Label for y-axis
+    :param xlog: Determines wether the x-axis should be plotted logarithmic.
+    :param ylog: Determines wether the y-axis should be plotted logarithmic.
     :return: None
     """
     fig, ax = plt.subplots(layout='constrained')

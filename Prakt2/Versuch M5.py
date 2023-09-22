@@ -8,11 +8,12 @@ lambd = 654  # nm
 
 
 def c(maxi, n_):
-    steigung, a, s_steigung, b = wert_xy(f[0:-1], maxi)
+    steigung, a, s_steigung, s_a = wert_xy(f[0:-1], maxi)
 
     print("sdsdd", s_steigung)
     print("jhkhjkhjk", steigung)
     return n_ * lambd * L / steigung
+
 
 
 # ------ Schallgeschwindigkeit in Wasser ------
