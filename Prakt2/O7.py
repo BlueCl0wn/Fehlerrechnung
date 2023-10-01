@@ -165,3 +165,6 @@ kappas = ((absorp(transmission2_1, 2.05), r"$\kappa$ für $T_(L_3-L_2) (\lambda)
 
 graph(wavelengths, kappas,
       title=r"$\kappa$ nach $\lambda$", xlabel=r"$\lambda$ in $m$", ylabel=r"$\kappa$", graph="plot")
+
+# ----- TEil 4 ------
+do_stuff_for_teil_2(Messwerte[1], Messwerte[8], "Hg mit 2 Gittern")
