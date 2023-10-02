@@ -133,9 +133,9 @@ transmission2_1 = transmission(handy[1], handy[2])
 print(f"Transmission_(L3-L2) = {transmission3_1}")
 print(f"Transmission_(L2-L1) = {transmission3_2}")"""
 
-transmissions = ((transmission3_2, r"Transmission $T_(L_3-L_2) (\lambda)$"),
-                 (transmission3_1, r"Transmission $T_(L_3-L_1) (\lambda)$"),
-                 (transmission2_1, r"Transmission $T_(L_2-L_1) (\lambda)$"))
+transmissions = ((transmission3_2, r"Transmission $T_(L_3-L_2) (\lambda)$", 'plot'),
+                 (transmission3_1, r"Transmission $T_(L_3-L_1) (\lambda)$", 'plot'),
+                 (transmission2_1, r"Transmission $T_(L_2-L_1) (\lambda)$", 'plot'))
 
 transmissions_free = [transmission2_1, transmission3_2, transmission3_1]
 
@@ -155,16 +155,23 @@ graph(dL, [transmission2_1[x2], transmission3_2[x2], transmission3_1[x2]],
 
 
 def absorp(trans, dL_):
-    trans[trans<0] = 0
+    trans[trans < 0] = 0
     return -1 / dL_ * np.log(trans)
 
 
-kappas = ((absorp(transmission2_1, 2.05), r"$\kappa$ für $T_(L_3-L_2) (\lambda)$"),
-                 (absorp(transmission3_2, 1.95), r"$\kappa$ für $T_(L_3-L_1) (\lambda)$"),
-                 (absorp(transmission3_1, 3.95), r"$\kappa$ für $T_(L_2-L_1) (\lambda)$"))
+kappas = ((absorp(transmission2_1, 2.05), r"$\kappa$ für $T_(L_3f-L_2) (\lambda)$", 'plot'),
+          (absorp(transmission3_2, 1.95), r"$\kappa$ für $T_(L_3-L_1) (\lambda)$", 'plot'),
+          (absorp(transmission3_1, 3.95), r"$\kappa$ für $T_(L_2-L_1) (\lambda)$", 'plot'))
 
 graph(wavelengths, kappas,
       title=r"$\kappa$ nach $\lambda$", xlabel=r"$\lambda$ in $m$", ylabel=r"$\kappa$", graph="plot")
 
 # ----- TEil 4 ------
-do_stuff_for_teil_2(Messwerte[1], Messwerte[8], "Hg mit 2 Gittern")
+do_stuff_for_teil_2(np.flip(Messwerte[1]), np.flip(Messwerte[8]), "Quecksilber mit 2 Gittern")
+do_stuff_for_teil_2(Messwerte[0], Messwerte[8], "Quecksilber mit 1 Gittern")
+
+"""vergleich = ((Messwerte[0] - Messwerte[8], "Hg mit 1 Gitter", 'plot'),
+             (Messwerte[1] - Messwerte[8], "Hg mit 2 Gittern", 'plot'))
+
+graph(wavelengths, vergleich, graph="plot", title=f"Nettospektrum von HG nach der Wellenlänge. Vergleich 1 und 2 Gitter",
+          xlabel="Wellenlänge in $m$", ylabel="Intensität", multiple=True)"""
